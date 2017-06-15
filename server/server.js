@@ -41,7 +41,7 @@ server.get("/animals", function(req, res, next) {
       return res.next(err);
     }
     res.send(
-      docs
+      docs.map(doc => Object.assign(doc, {id: doc._id, _id: undefined}))
     );
     res.next();
   });
