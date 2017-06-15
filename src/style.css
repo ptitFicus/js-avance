@@ -1,0 +1,57 @@
+body {
+  background-color: lavender;
+}
+
+.delete-button {
+  float:right;
+}
+
+#creation-form label {
+  display: block;
+}
+
+#creation-form label span {
+  display: inline-block;
+  width: 75px;
+}
+
+.animal {
+  height: 200px;
+}
+
+.animal-image {
+  width: 150px;
+}
+
+.animal-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.animal-info {
+  align-self: stretch;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 16px;
+}
+
+.animal {
+  margin-bottom: 32px;
+}
+
+.animal:nth-child(even) {
+  background-color: palegreen;
+}
+
+.animal:nth-child(odd) {
+  background-color: mistyrose;
+}
