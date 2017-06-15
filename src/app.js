@@ -1,3 +1,5 @@
+require('./style.css')
+
 /**
  * Repaint l'interface graphique en supprimant tous les éléments qui y sont affichés
  * puis réaffichant tous les éléments présents en mémoire.

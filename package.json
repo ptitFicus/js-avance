@@ -1,0 +1,28 @@
+{
+  "name": "js-avance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "cross-env NODE_ENV=production && webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ptitFicus/js-avance.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ptitFicus/js-avance/issues"
+  },
+  "homepage": "https://github.com/ptitFicus/js-avance#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "cross-env": "^5.0.1",
+    "css-loader": "^0.28.4",
+    "style-loader": "^0.18.2",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}
