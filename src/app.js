@@ -1,4 +1,5 @@
 require('./style.css')
+var inventory = require('./inventory.js')
 
 /**
  * Repaint l'interface graphique en supprimant tous les éléments qui y sont affichés
@@ -81,7 +82,7 @@ function generateAnimalTag(animal, deleteCallback) {
 
   var picture = document.createElement("img");
   picture.classList.add("animal-image");
-  picture.setAttribute("src", animal.photo);
+  picture.setAttribute("src", animal.picture);
 
   var deleteButton = document.createElement("button");
   deleteButton.innerHTML = "X";
