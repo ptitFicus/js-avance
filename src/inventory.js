@@ -8,32 +8,22 @@ function Animal(id, name, species, race, age, picture) {
 }
 
 
-var animals = [];
+var animals = new Map();
 
 var id = 0;
 
 function addAnimal(name, species, race, age, picture) {
-  var animal = new Animal(id, name, species, race, age, picture);
   id++;
-  animals.push(animal);
-  console.log(animals);
-
+  animals.set(id, new Animal(id, name, species, race, age, picture));
   return id;
 }
 
 function removeAnimal(id) {
-  for (var i = 0; i < animals.length; i++) {
-    var animal = animals[i];
-    if (animal.id === id) {
-      animals.splice(i, 1);
-      break;
-    }
-  }
-  console.log(animals);
+  animals.delete(id)
 }
 
 function getAnimals() {
-  return animals
+  return [...animals.values()]
 }
 
 
