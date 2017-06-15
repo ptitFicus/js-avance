@@ -26,21 +26,21 @@ function clearInventory() {
  * les animaux en mémoire
  */
 function fillInventory() {
-  var animals = inventory.getAnimals();
-  for (var i = 0; i < animals.length; i++) {
-    var animal = animals[i];
-    var deleteFunction = (function(id) {
+  var animals = inventory.getAnimals(function(animals) {
+    for (var i = 0; i < animals.length; i++) {
+      var animal = animals[i];
+      var deleteFunction = (function(id) {
         return function() {
-          deleteAnimal(id);
-          repaint();
+          deleteAnimal(id, repaint);
         };
-    })(animal.id)
+     })(animal.id)
     
     var entry = generateAnimalTag(animal, deleteFunction);
 
     var inventoryNode = document.getElementById("inventory");
     inventoryNode.appendChild(entry);
-  }
+    }
+  }); 
 }
 
 /**
@@ -48,8 +48,8 @@ function fillInventory() {
  * Cette fonction n'a pas d'impact sur l'interface graphique (il faut utiliser repaint pour cela)
  * @param {Number} id identifiant de l'animal à supprimer de la liste
  */
-function deleteAnimal(id) {
-  inventory.removeAnimal(id);
+function deleteAnimal(id, callback) {
+  inventory.removeAnimal(id, callback);
 }
 
 /**
@@ -121,8 +121,7 @@ function addAnimal(e) {
   var photo = form["input-photo"].value;
 
   console.log(inventory)
-  inventory.addAnimal(name, species, race, age, photo)
-  repaint();
+  inventory.addAnimal(name, species, race, age, photo, repaint)
 }
 
 /**
@@ -132,6 +131,7 @@ function init() {
   document
     .getElementById("creation-form")
     .addEventListener("submit", addAnimal);
+    repaint();
 }
 init();
 
