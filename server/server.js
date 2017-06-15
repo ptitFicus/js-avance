@@ -41,9 +41,7 @@ server.get("/animals", function(req, res, next) {
       return res.next(err);
     }
     res.send(
-      docs.map(function(doc) {
-        return doc._id;
-      })
+      docs
     );
     res.next();
   });
