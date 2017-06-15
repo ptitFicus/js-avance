@@ -28,20 +28,17 @@ function clearInventory() {
  */
 function fillInventory() {
   var animals = inventory.getAnimals();
-  for (var i = 0; i < animals.length; i++) {
-    var animal = animals[i];
-    var deleteFunction = (function(id) {
-        return function() {
-          deleteAnimal(id);
-          repaint();
-        };
-    })(animal.id)
-    
-    var entry = generateAnimalTag(animal, deleteFunction);
+  animals.forEach((animal, index) => {    
+    var entry = generateAnimalTag(
+      animal,
+      () => {
+        deleteAnimal(animal.id);
+        repaint();
+      });
 
     var inventoryNode = document.getElementById("inventory");
     inventoryNode.appendChild(entry);
-  }
+  })
 }
 
 /**
