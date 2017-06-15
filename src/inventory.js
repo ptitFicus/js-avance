@@ -16,36 +16,24 @@ function addAnimal(name, species, race, age, picture, callback) {
   id++;
   
   var animal = new Animal(id, name, species, race, age, picture);
-  var r = new XMLHttpRequest();
-  r.open("PUT", `http://localhost:8090/animals/${id}`, true);
-  r.onreadystatechange = function () {
-    if (r.readyState != 4 || r.status != 200) return;
-    callback && callback();
-  };
-  r.send(JSON.stringify(animal));
-  
+  fetch(`http://localhost:8090/animals/${id}`, { method: 'PUT', body: JSON.stringify(animal)})
+    .then(callback)
+    .catch(e => console.error(e))
   
   return id;
 }
 
 function removeAnimal(id, callback) {
-  var r = new XMLHttpRequest();
-  r.open("DELETE", `http://localhost:8090/animals/${id}`, true);
-  r.onreadystatechange = function () {
-    if (r.readyState != 4 || r.status != 200) return;
-    callback && callback();
-  };
-  r.send();
+  fetch(`http://localhost:8090/animals/${id}`, { method: 'DELETE'})
+    .then(callback)
+    .catch(e => console.error(e))
 }
 
 function getAnimals(callback) {
-  var r = new XMLHttpRequest();
-  r.open("GET", "http://localhost:8090/animals", true);
-  r.onreadystatechange = function () {
-    if (r.readyState != 4 || r.status != 200) return;
-    callback && callback(JSON.parse(r.responseText));
-  };
-  r.send();
+  fetch('http://localhost:8090/animals')
+    .then(res => res.json())
+    .then(json => callback(json))
+    .catch(e => console.error(e))
 }
 
 
