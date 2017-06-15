@@ -1,5 +1,7 @@
 require('./style.css')
-var inventory = require('./inventory.js')
+var AnimalContainer = require('./inventory.js')
+console.log(AnimalContainer)
+var inventory = new AnimalContainer()
 
 /**
  * Repaint l'interface graphique en supprimant tous les éléments qui y sont affichés

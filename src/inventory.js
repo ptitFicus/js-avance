@@ -7,29 +7,25 @@ function Animal(id, name, species, race, age, picture) {
   this.picture = picture;
 }
 
+class AnimalContainer {
+  constructor() {
+    this.animals = new Map()
+    this.id = 0
+  }
 
-var animals = new Map();
+  addAnimal(name, species, race, age, picture) {
+    this.id++;
+    this.animals.set(this.id, new Animal(this.id, name, species, race, age, picture));
+    return this.id;
+  }
 
-var id = 0;
+  removeAnimal(id) {
+    this.animals.delete(id)
+  }
 
-function addAnimal(name, species, race, age, picture) {
-  id++;
-  animals.set(id, new Animal(id, name, species, race, age, picture));
-  return id;
+  getAnimals() {
+    return [...this.animals.values()]
+  }
 }
 
-function removeAnimal(id) {
-  animals.delete(id)
-}
-
-function getAnimals() {
-  return [...animals.values()]
-}
-
-
-module.exports = {
-  addAnimal,
-  removeAnimal,
-  getAnimals
-}
-
+module.exports = AnimalContainer
