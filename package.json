@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "cross-env NODE_ENV=production && webpack -p"
+    "build": "cross-env NODE_ENV=production && webpack -p",
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
+    "jasmine": "^2.6.0",
     "style-loader": "^0.18.2",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
