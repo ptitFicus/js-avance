@@ -25,10 +25,10 @@ function clearInventory() {
 function fillInventory() {
   var animals = inventory.getAnimals();
   for (var i = 0; i < animals.length; i++) {
-    let animal = animals[i];
+    var animal = animals[i];
     var deleteFunction = (function(id) {
         return function() {
-          deleteAnimal(animal.id);
+          deleteAnimal(id);
           repaint();
         };
     })(animal.id)
