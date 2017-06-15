@@ -10,13 +10,13 @@ function Animal(id, name, species, race, age, picture) {
 class AnimalContainer {
   constructor() {
     this.animals = new Map()
-    this.id = 0
+    this.ids = this.idGenerator()
   }
 
   addAnimal(name, species, race, age, picture) {
-    this.id++;
-    this.animals.set(this.id, new Animal(this.id, name, species, race, age, picture));
-    return this.id;
+    const newId = this.ids.next()
+    this.animals.set(newId, new Animal(newId, name, species, race, age, picture));
+    return newId;
   }
 
   removeAnimal(id) {
@@ -25,6 +25,12 @@ class AnimalContainer {
 
   getAnimals() {
     return [...this.animals.values()]
+  }
+
+  *idGenerator() {
+    for(let i = 0; ; i++) {
+      yield i
+    }
   }
 }
 
