@@ -3,6 +3,7 @@ var db = new Datastore({ filename: "./animals.db", autoload: true });
 
 var restify = require("restify");
 var server = restify.createServer();
+server.use(restify.CORS());
 server.use(restify.bodyParser());
 
 var bunyan = require("bunyan");
@@ -70,6 +71,8 @@ server.get("/byspecies/:species", function(req, res, next) {
 
 server.put("/animals/:id", function(req, res, next) {
   console.log("PUT /animal/" + req.params.id + " " + req.params);
+  const body = JSON.parse(req.body)
+  console.log(body)
   db.find({ _id: req.params.id }, function(err, docs) {
     if (err) {
       return res.next(err);
@@ -80,11 +83,11 @@ server.put("/animals/:id", function(req, res, next) {
     } else {
       var animal = {
         _id: req.params.id,
-        name: req.params.name,
-        species: req.params.species,
-        race: req.params.race,
-        age: req.params.age,
-        picture: req.params.picture
+        name: body.name,
+        species: body.species,
+        race: body.race,
+        age: body.age,
+        picture: body.picture
       };
       console.log("Adding animal:", animal);
       db.insert(animal, function(err, newDoc) {
