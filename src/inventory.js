@@ -34,4 +34,4 @@ class AnimalContainer {
   }
 }
 
-module.exports = AnimalContainer
+export default AnimalContainer

@@ -1,6 +1,5 @@
 require('./style.css')
-var AnimalContainer = require('./inventory.js')
-console.log(AnimalContainer)
+import AnimalContainer from './inventory.js'
 var inventory = new AnimalContainer()
 
 /**
