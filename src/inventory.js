@@ -38,8 +38,8 @@ function getAnimals() {
 
 
 module.exports = {
-  addAnimal: addAnimal,
-  removeAnimal: removeAnimal,
-  getAnimals: getAnimals
+  addAnimal,
+  removeAnimal,
+  getAnimals
 }
 
