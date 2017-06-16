@@ -1,6 +1,6 @@
-require('./style.css')
-import AnimalContainer from './inventory.js'
-var inventory = new AnimalContainer()
+import "./style.css";
+import AnimalContainer from "./inventory.js";
+var inventory = new AnimalContainer();
 
 /**
  * Repaint l'interface graphique en supprimant tous les éléments qui y sont affichés
@@ -28,17 +28,15 @@ function clearInventory() {
  */
 function fillInventory() {
   var animals = inventory.getAnimals();
-  animals.forEach((animal, index) => {    
-    var entry = generateAnimalTag(
-      animal,
-      () => {
-        deleteAnimal(animal.id);
-        repaint();
-      });
+  animals.forEach((animal, index) => {
+    var entry = generateAnimalTag(animal, () => {
+      deleteAnimal(animal.id);
+      repaint();
+    });
 
     var inventoryNode = document.getElementById("inventory");
     inventoryNode.appendChild(entry);
-  })
+  });
 }
 
 /**
@@ -118,8 +116,8 @@ function addAnimal(e) {
   var age = form["input-age"].value;
   var photo = form["input-photo"].value;
 
-  console.log(inventory)
-  inventory.addAnimal(name, species, race, age, photo)
+  console.log(inventory);
+  inventory.addAnimal(name, species, race, age, photo);
   repaint();
 }
 
@@ -132,6 +130,3 @@ function init() {
     .addEventListener("submit", addAnimal);
 }
 init();
-
-
-
