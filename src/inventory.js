@@ -14,7 +14,7 @@ class AnimalContainer {
   }
 
   addAnimal(name, species, race, age, picture) {
-    const newId = this.ids.next()
+    const newId = this.ids.next().value
     this.animals.set(newId, new Animal(newId, name, species, race, age, picture));
     return newId;
   }
@@ -28,7 +28,7 @@ class AnimalContainer {
   }
 
   *idGenerator() {
-    for(let i = 0; ; i++) {
+    for (let i = 0; ; i++) {
       yield i
     }
   }

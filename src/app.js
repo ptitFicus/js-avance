@@ -1,4 +1,5 @@
 import "./style.css";
+import "babel-polyfill"
 import AnimalContainer from "./inventory.js";
 var inventory = new AnimalContainer();
 
