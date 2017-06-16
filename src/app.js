@@ -1,5 +1,7 @@
 require('./style.css')
+require('babel-polyfill')
 var inventory = require('./inventory.js')
+
 
 /**
  * Repaint l'interface graphique en supprimant tous les éléments qui y sont affichés
@@ -26,21 +28,21 @@ function clearInventory() {
  * les animaux en mémoire
  */
 function fillInventory() {
-  var animals = inventory.getAnimals(function(animals) {
+  var animals = inventory.getAnimals(function (animals) {
     for (var i = 0; i < animals.length; i++) {
       var animal = animals[i];
-      var deleteFunction = (function(id) {
-        return function() {
+      var deleteFunction = (function (id) {
+        return function () {
           deleteAnimal(id, repaint);
         };
-     })(animal.id)
-    
-    var entry = generateAnimalTag(animal, deleteFunction);
+      })(animal.id)
 
-    var inventoryNode = document.getElementById("inventory");
-    inventoryNode.appendChild(entry);
+      var entry = generateAnimalTag(animal, deleteFunction);
+
+      var inventoryNode = document.getElementById("inventory");
+      inventoryNode.appendChild(entry);
     }
-  }); 
+  });
 }
 
 /**
@@ -131,7 +133,7 @@ function init() {
   document
     .getElementById("creation-form")
     .addEventListener("submit", addAnimal);
-    repaint();
+  repaint();
 }
 init();
 
