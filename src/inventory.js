@@ -7,39 +7,43 @@ function Animal(id, name, species, race, age, picture) {
   this.picture = picture;
 }
 
-
 var animals = [];
 
 var id = 1000;
 
-function addAnimal(name, species, race, age, picture, callback) {
+async function addAnimal(name, species, race, age, picture, callback) {
   id++;
-  
+
   var animal = new Animal(id, name, species, race, age, picture);
-  fetch(`http://localhost:8090/animals/${id}`, { method: 'PUT', body: JSON.stringify(animal)})
-    .then(callback)
-    .catch(e => console.error(e))
-  
+  try {
+    await fetch(`http://localhost:8090/animals/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(animal)
+    });
+
+    callback();
+  } catch (error) {
+    console.error(error);
+  }
+
   return id;
 }
 
 function removeAnimal(id, callback) {
-  fetch(`http://localhost:8090/animals/${id}`, { method: 'DELETE'})
+  fetch(`http://localhost:8090/animals/${id}`, { method: "DELETE" })
     .then(callback)
-    .catch(e => console.error(e))
+    .catch(e => console.error(e));
 }
 
 function getAnimals(callback) {
-  fetch('http://localhost:8090/animals')
+  fetch("http://localhost:8090/animals")
     .then(res => res.json())
     .then(json => callback(json))
-    .catch(e => console.error(e))
+    .catch(e => console.error(e));
 }
-
 
 module.exports = {
   addAnimal: addAnimal,
   removeAnimal: removeAnimal,
   getAnimals: getAnimals
-}
-
+};
