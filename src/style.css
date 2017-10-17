@@ -21,6 +21,7 @@ body {
 
 .animal-image {
   width: 150px;
+  max-height: 150px;
 }
 
 .animal-name {

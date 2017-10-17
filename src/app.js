@@ -1,45 +1,15 @@
-require('./style.css')
-var inventory = require('./inventory.js')
+var animals = [
+  { id: 1, name: 'Lassie', specie: 'Chien', race: 'Colley', age: 5, picture: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg' },
+  { id: 2, name: 'Milou', specie: 'Chien', race: 'Fox Terrier', age: 6, picture: 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg' },
+  { id: 3, name: 'Garfield', specie: 'Chat', race: 'Chat de gouttière', age: 8, picture: 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png' }
+];
 
-/**
- * Repaint l'interface graphique en supprimant tous les éléments qui y sont affichés
- * puis réaffichant tous les éléments présents en mémoire.
- * Cette fonction permet d'appliquer les mises à jour de la liste animals graphiquement
- */
-function repaint() {
-  clearInventory();
-  fillInventory();
-}
-
-/**
- * Vide la section inventory de l'interface graphique
- */
-function clearInventory() {
-  var inventoryNode = document.getElementById("inventory");
-  while (inventoryNode.hasChildNodes()) {
-    inventoryNode.removeChild(inventoryNode.firstChild);
-  }
-}
-
-/**
- * Rempli la section inventory de la liste des animaux avec
- * les animaux en mémoire
- */
-function fillInventory() {
-  var animals = inventory.getAnimals();
-  for (var i = 0; i < animals.length; i++) {
-    var animal = animals[i];
-    var deleteFunction = (function(id) {
-        return function() {
-          deleteAnimal(id);
-          repaint();
-        };
-    })(animal.id)
-    
-    var entry = generateAnimalTag(animal, deleteFunction);
-
-    var inventoryNode = document.getElementById("inventory");
-    inventoryNode.appendChild(entry);
+// On détermine l'id de départ en cherchant l'id max parmis ceux qui existent déjà
+var id = 0;
+for (var i = 0; i < animals.length; i++) {
+  var localId = animals[i].id
+  if (localId > id) {
+    id = localId
   }
 }
 
@@ -49,7 +19,57 @@ function fillInventory() {
  * @param {Number} id identifiant de l'animal à supprimer de la liste
  */
 function deleteAnimal(id) {
-  inventory.removeAnimal(id);
+  for (var i = 0; i < animals.length; i++) {
+    var animal = animals[i];
+    if (animal.id === id) {
+      animals.splice(i, 1);
+      break;
+    }
+  }
+  repaint();
+}
+
+/**
+ * Ajoute un animale à la liste des animaux
+ * @param {Object} animal animal à ajouter à la liste
+ */
+function addAnimal(animal) {
+  id += 1
+  animal.id = id
+  animals.push(animal)
+
+  repaint();
+}
+
+
+
+
+
+
+
+/********************************************************
+ * LA SECTION CI-DESSOUS CONTIENT LES METHODES MANIPULANT
+ * LE DOM. CES METHODES N'ONT PAS A ETRE MODIFIEE DANS LE
+ * CADRE DE CET EXERCICE
+ ********************************************************/
+
+/**
+ * Rempli la section inventory de la liste des animaux avec
+ * les animaux en mémoire
+ */
+function fillInventory() {
+  var inventoryNode = document.getElementById("inventory");
+
+  for (var i = 0; i < animals.length; i++) {
+    var animal = animals[i];
+
+    var deleteFunction = function () {
+      deleteAnimal(animal.id);
+    }
+
+    var entry = generateAnimalTag(animal, deleteFunction);
+    inventoryNode.appendChild(entry);
+  }
 }
 
 /**
@@ -72,7 +92,7 @@ function generateAnimalTag(animal, deleteCallback) {
   info.classList.add("animal-info");
 
   var specie = document.createElement("div");
-  specie.textContent = "Espèce : " + animal.species;
+  specie.textContent = "Espèce : " + animal.specie;
 
   var race = document.createElement("div");
   race.textContent = "Race : " + animal.race;
@@ -110,19 +130,44 @@ function generateAnimalTag(animal, deleteCallback) {
  * de l'interface graphique
  * @param {Event} e l'évènement de submit du formulaire
  */
-function addAnimal(e) {
+function registerAnimal(e) {
   e.preventDefault();
   var form = e.target;
 
   var name = form["input-name"].value;
-  var species = form["input-species"].value;
+  var specie = form["input-species"].value;
   var race = form["input-race"].value;
   var age = form["input-age"].value;
   var photo = form["input-photo"].value;
 
-  console.log(inventory)
-  inventory.addAnimal(name, species, race, age, photo)
-  repaint();
+  addAnimal({
+    name: name,
+    specie: specie,
+    race: race,
+    age: age,
+    photo: photo
+  })
+}
+
+
+/**
+ * Repaint l'interface graphique en supprimant tous les éléments qui y sont affichés
+ * puis réaffichant tous les éléments présents en mémoire.
+ * Cette fonction permet d'appliquer les mises à jour de la liste animals graphiquement
+ */
+function repaint() {
+  clearInventory();
+  fillInventory();
+}
+
+/**
+ * Vide la section inventory de l'interface graphique
+ */
+function clearInventory() {
+  var inventoryNode = document.getElementById("inventory");
+  while (inventoryNode.hasChildNodes()) {
+    inventoryNode.removeChild(inventoryNode.firstChild);
+  }
 }
 
 /**
@@ -131,9 +176,7 @@ function addAnimal(e) {
 function init() {
   document
     .getElementById("creation-form")
-    .addEventListener("submit", addAnimal);
+    .addEventListener("submit", registerAnimal);
+  repaint();
 }
 init();
-
-
-
