@@ -50,7 +50,7 @@ function addAnimal(animal) {
  */
 function fillInventory() {
   var inventoryNode = document.getElementById("inventory");
-
+  // TODO réparer le callback de suppression en utilisant une IIFE
   for (var i = 0; i < animals.length; i++) {
     var animal = animals[i];
 
