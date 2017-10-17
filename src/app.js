@@ -5,14 +5,10 @@ var animals = [
 ];
 
 // On détermine l'id de départ en cherchant l'id max parmis ceux qui existent déjà
-// TODO : remplacer cette boucle avec un reduce
-var id = 0;
-for (var i = 0; i < animals.length; i++) {
-  var localId = animals[i].id
-  if (localId > id) {
-    id = localId
-  }
-}
+var id = animals.reduce(function (acc, next) {
+  return next.id > acc ? next.id : acc
+}, 0)
+
 
 /**
  * Supprime l'animal correspondant à l'identifiant donné de la liste en mémoire
@@ -20,14 +16,9 @@ for (var i = 0; i < animals.length; i++) {
  * @param {Number} id identifiant de l'animal à supprimer de la liste
  */
 function deleteAnimal(id) {
-  // TODO changer cette implémentation pour utiliser filter
-  for (var i = 0; i < animals.length; i++) {
-    var animal = animals[i];
-    if (animal.id === id) {
-      animals.splice(i, 1);
-      break;
-    }
-  }
+  animals = animals.filter(function (animal) {
+    return animal.id !== id
+  })
   repaint();
 }
 
@@ -54,9 +45,11 @@ function fillInventory() {
   for (var i = 0; i < animals.length; i++) {
     var animal = animals[i];
 
-    var deleteFunction = function () {
-      deleteAnimal(animal.id);
-    }
+    var deleteFunction = function (id) {
+      return function () {
+        deleteAnimal(id);
+      }
+    }(animal.id)
 
     var entry = generateAnimalTag(animal, deleteFunction);
     inventoryNode.appendChild(entry);
