@@ -5,6 +5,7 @@ var animals = [
 ];
 
 // On détermine l'id de départ en cherchant l'id max parmis ceux qui existent déjà
+// TODO : remplacer cette boucle avec un reduce
 var id = 0;
 for (var i = 0; i < animals.length; i++) {
   var localId = animals[i].id
@@ -19,6 +20,7 @@ for (var i = 0; i < animals.length; i++) {
  * @param {Number} id identifiant de l'animal à supprimer de la liste
  */
 function deleteAnimal(id) {
+  // TODO changer cette implémentation pour utiliser filter
   for (var i = 0; i < animals.length; i++) {
     var animal = animals[i];
     if (animal.id === id) {
@@ -42,17 +44,6 @@ function addAnimal(animal) {
 }
 
 
-
-
-
-
-
-/********************************************************
- * LA SECTION CI-DESSOUS CONTIENT LES METHODES MANIPULANT
- * LE DOM. CES METHODES N'ONT PAS A ETRE MODIFIEE DANS LE
- * CADRE DE CET EXERCICE
- ********************************************************/
-
 /**
  * Rempli la section inventory de la liste des animaux avec
  * les animaux en mémoire
@@ -72,6 +63,14 @@ function fillInventory() {
   }
 }
 
+
+
+
+/********************************************************
+ * LA SECTION CI-DESSOUS CONTIENT LES METHODES MANIPULANT
+ * LE DOM. CES METHODES N'ONT PAS A ETRE MODIFIEE DANS LE
+ * CADRE DE CET EXERCICE
+ ********************************************************/
 /**
  * 
  * @param {Object} animal génère le markup HTML pour un animal donné
