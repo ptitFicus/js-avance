@@ -41,19 +41,15 @@ function addAnimal(animal) {
  */
 function fillInventory() {
   var inventoryNode = document.getElementById("inventory");
-  // TODO réparer le callback de suppression en utilisant une IIFE
-  for (var i = 0; i < animals.length; i++) {
-    var animal = animals[i];
 
-    var deleteFunction = function (id) {
-      return function () {
-        deleteAnimal(id);
-      }
-    }(animal.id)
+  animals.forEach(function (animal) {
+    var deleteFunction = function () {
+      deleteAnimal(animal.id);
+    }
 
     var entry = generateAnimalTag(animal, deleteFunction);
     inventoryNode.appendChild(entry);
-  }
+  })
 }
 
 
