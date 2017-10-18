@@ -17,17 +17,17 @@ var store = function () {
    * @param {Number} age âge du nouvel animal
    * @param {String} photo  url de la photo du nouvel animal
    */
-  function addAnimal(name, specie, race, age, photo) {
+  function addAnimal(name, specie, race, age, photo, callback) {
     id += 1
 
-    animals.push({
-      id: id,
-      name: name,
-      specie: specie,
-      race: race,
-      age: age,
-      photo: photo
-    })
+    var animal = { id, name, specie, race, age, photo };
+    var r = new XMLHttpRequest();
+    r.open("PUT", `http://localhost:8090/animals/${id}`, true);
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+      callback && callback(id);
+    };
+    r.send(JSON.stringify(animal));
 
     return id
   }
@@ -37,14 +37,24 @@ var store = function () {
    * Cette fonction n'a pas d'impact sur l'interface graphique (il faut utiliser repaint pour cela)
    * @param {Number} id identifiant de l'animal à supprimer de la liste
    */
-  function deleteAnimal(id) {
-    animals = animals.filter(function (animal) {
-      return animal.id !== id
-    })
+  function deleteAnimal(id, callback) {
+    var r = new XMLHttpRequest();
+    r.open("DELETE", `http://localhost:8090/animals/${id}`, true);
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+      callback && callback();
+    };
+    r.send();
   }
 
-  function getAnimals() {
-    return animals.slice()
+  function getAnimals(callback) {
+    var r = new XMLHttpRequest();
+    r.open("GET", "http://localhost:8090/animals", true);
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+      callback && callback(JSON.parse(r.responseText));
+    };
+    r.send();
   }
 
   return {

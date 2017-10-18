@@ -5,14 +5,17 @@
 function fillInventory() {
   var inventoryNode = document.getElementById("inventory");
 
-  store.getAnimals().forEach(function (animal) {
-    var deleteFunction = function () {
-      store.deleteAnimal(animal.id);
-      repaint();
-    }
+  store.getAnimals(function (animals) {
+    animals.forEach(function (animal) {
+      var deleteFunction = function () {
+        store.deleteAnimal(animal.id, function () {
+          repaint();
+        });
+      }
 
-    var entry = generateAnimalTag(animal, deleteFunction);
-    inventoryNode.appendChild(entry);
+      var entry = generateAnimalTag(animal, deleteFunction);
+      inventoryNode.appendChild(entry);
+    })
   })
 }
 
@@ -51,7 +54,7 @@ function generateAnimalTag(animal, deleteCallback) {
 
   var picture = document.createElement("img");
   picture.classList.add("animal-image");
-  picture.setAttribute("src", animal.picture);
+  picture.setAttribute("src", animal.photo);
 
   var deleteButton = document.createElement("button");
   deleteButton.innerHTML = "X";
@@ -89,9 +92,7 @@ function registerAnimal(e) {
   var age = form["input-age"].value;
   var photo = form["input-photo"].value;
 
-  store.addAnimal(name, specie, race, age, photo)
-
-  repaint();
+  store.addAnimal(name, specie, race, age, photo, function () { repaint(); })
 }
 
 
