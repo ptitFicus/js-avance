@@ -1,10 +1,6 @@
-var store = function (store) {
-
-  store.searchBySpecie = function (specie) {
-    return store.getAnimals().filter(function (animal) {
-      return animal.specie === specie
-    })
-  }
-
+/*
+store = function (store) {
+  store.findById = id => store.getAnimals().find(({ id: currentId }) => currentId === id)
   return store;
 }(store)
+*/

@@ -1,3 +1,9 @@
+const store = new PetStore()
+
+store.addAnimal('Lassie', 'Chien', 'Colley', 5, 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg')
+store.addAnimal('Milou', 'Chien', 'Fox Terrier', 6, 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg')
+store.addAnimal('Garfield', 'Chat', 'Chat de gouttière', 8, 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png')
+
 /**
  * Rempli la section inventory de la liste des animaux avec
  * les animaux en mémoire
