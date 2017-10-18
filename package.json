@@ -7,7 +7,6 @@
     "start": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production && webpack -p",
     "test": "jest",
-    "karma": "./node_modules/karma/bin/karma start"
   },
   "repository": {
     "type": "git",
@@ -31,11 +30,6 @@
     "css-loader": "^0.28.4",
     "jasmine-core": "^2.8.0",
     "jest": "^21.2.1",
-    "karma": "^1.7.1",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-firefox-launcher": "^1.0.1",
-    "karma-jasmine": "^1.1.0",
-    "karma-phantomjs-launcher": "^1.0.4",
     "pkg-dir": "^2.0.0",
     "regenerator-runtime": "^0.11.0",
     "style-loader": "^0.18.2",
