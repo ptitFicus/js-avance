@@ -5,9 +5,9 @@
 function fillInventory() {
   var inventoryNode = document.getElementById("inventory");
 
-  animals.forEach(function (animal) {
+  store.getAnimals().forEach(function (animal) {
     var deleteFunction = function () {
-      deleteAnimal(animal.id);
+      store.deleteAnimal(animal.id);
       repaint();
     }
 
@@ -89,7 +89,7 @@ function registerAnimal(e) {
   var age = form["input-age"].value;
   var photo = form["input-photo"].value;
 
-  addAnimal(name, specie, race, age, photo)
+  store.addAnimal(name, specie, race, age, photo)
 
   repaint();
 }
