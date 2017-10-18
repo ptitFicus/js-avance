@@ -1,5 +1,5 @@
 # Formation Javascript Avancé
 
-
-## Exercice ?
-La fonction de suppression a un bug étrange, elle supprime systématiquement le dernier animal ajouté, plutôt que celui sur lequel on clique. Réglez ce problème.
+## Mise en place de babel
+`npm install --save-dev  babel-cli babel-preset-env`
+`node_modules/.bin/babel --presets=env ./src/inventory.js `
