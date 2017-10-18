@@ -1,13 +1,7 @@
-// describe('trier la liste des utilisateurs', function() {
-//
-//   it('trie la liste en ordre alphabétique par défaut', function() {
-//     // code des vérifications
-//   });
-//
-// });
+describe('form should', () => {
+  it('add a animal', () => {
 
-describe('home', function() {
-  it('should add a animal', function() {
+    browser.get('http://localhost:8080/')
 
     element(by.id('input-name')).sendKeys('Prune');
     element(by.id('input-species')).sendKeys('Chat');
@@ -16,14 +10,14 @@ describe('home', function() {
     element(by.id('input-photo')).sendKeys('https://static.wamiz.fr/images/news/facebook/article/siamois1-fb-58527a52d57bb.jpg')
 
     element(by.id('add-button')).click();
+    const animals = element.all(by.css('.animal'));
 
-    var todoList = element.all(by.repeater('todo in todoList.todos'));
-    expect(todoList.count()).toEqual(3);
-    expect(todoList.get(2).getText()).toEqual('write first protractor test');
+    expect(animals.count()).toEqual(1)
 
-    // You wrote your first test, cross it off the list
-    todoList.get(2).element(by.css('input')).click();
-    var completedAmount = element.all(by.css('.done-true'));
-    expect(completedAmount.count()).toEqual(2);
+    element(by.id('input-name')).sendKeys('Sancho');
+    element(by.id('add-button')).click();
+    expect(animals.count()).toEqual(2)
+
   });
+
 });

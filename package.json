@@ -7,6 +7,7 @@
     "start": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production && webpack -p",
     "test": "jest",
+    "test-ui": "protractor"
   },
   "repository": {
     "type": "git",
