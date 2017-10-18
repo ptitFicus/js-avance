@@ -51,7 +51,7 @@ function generateAnimalTag(animal, deleteCallback) {
 
   var picture = document.createElement("img");
   picture.classList.add("animal-image");
-  picture.setAttribute("src", animal.picture);
+  picture.setAttribute("src", animal.photo);
 
   var deleteButton = document.createElement("button");
   deleteButton.innerHTML = "X";

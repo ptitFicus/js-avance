@@ -1,13 +1,23 @@
 var store = function () {
   var animals = [
-    { id: 1, name: 'Lassie', specie: 'Chien', race: 'Colley', age: 5, picture: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg' },
-    { id: 2, name: 'Milou', specie: 'Chien', race: 'Fox Terrier', age: 6, picture: 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg' },
-    { id: 3, name: 'Garfield', specie: 'Chat', race: 'Chat de gouttière', age: 8, picture: 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png' }
+    new Animal(1, 'Lassie', 'Chien', 'Colley', 5, 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg'),
+    new Animal(2, 'Milou', 'Chien', 'Fox Terrier', 6, 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg'),
+    new Animal(3, 'Garfield', 'Chat', 'Chat de gouttière', 8, 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png')
   ];
 
   var id = animals.reduce(function (acc, next) {
     return next.id > acc ? next.id : acc
   }, 0)
+
+
+  function Animal(id, name, specie, race, age, photo) {
+    this.id = id;
+    this.name = name;
+    this.specie = specie;
+    this.race = race;
+    this.age = age;
+    this.photo = photo;
+  }
 
   /**
    * 
@@ -20,14 +30,7 @@ var store = function () {
   function addAnimal(name, specie, race, age, photo) {
     id += 1
 
-    animals.push({
-      id: id,
-      name: name,
-      specie: specie,
-      race: race,
-      age: age,
-      photo: photo
-    })
+    animals.push(new Animal(id, name, specie, race, age, photo))
 
     return id
   }
