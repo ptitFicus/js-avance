@@ -1,14 +1,10 @@
-var store = function () {
-  var animals = [
-    new Animal(1, 'Lassie', 'Chien', 'Colley', 5, 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg'),
-    new Animal(2, 'Milou', 'Chien', 'Fox Terrier', 6, 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg'),
-    new Animal(3, 'Garfield', 'Chat', 'Chat de gouttière', 8, 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png')
-  ];
+let store = function () {
+  const animals = new Map();
+  animals.set(1, new Animal(1, 'Lassie', 'Chien', 'Colley', 5, 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg'))
+  animals.set(2, new Animal(2, 'Milou', 'Chien', 'Fox Terrier', 6, 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg'))
+  animals.set(3, new Animal(3, 'Garfield', 'Chat', 'Chat de gouttière', 8, 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png'))
 
-  var id = animals.reduce(function (acc, next) {
-    return next.id > acc ? next.id : acc
-  }, 0)
-
+  let id = Math.max(...animals.keys());
 
   function Animal(id, name, specie, race, age, photo) {
     this.id = id;
@@ -27,10 +23,10 @@ var store = function () {
    * @param {Number} age âge du nouvel animal
    * @param {String} photo  url de la photo du nouvel animal
    */
-  function addAnimal(name, specie, race, age, photo) {
+  function addAnimal(...rest) {
     id += 1
 
-    animals.push(new Animal(id, name, specie, race, age, photo))
+    animals.set(id, new Animal(id, ...rest))
 
     return id
   }
@@ -40,19 +36,18 @@ var store = function () {
    * Cette fonction n'a pas d'impact sur l'interface graphique (il faut utiliser repaint pour cela)
    * @param {Number} id identifiant de l'animal à supprimer de la liste
    */
-  function deleteAnimal(id) {
-    animals = animals.filter(function (animal) {
-      return animal.id !== id
-    })
+  function deleteAnimal(idToDelete) {
+    animals.delete(idToDelete)
   }
 
   function getAnimals() {
-    return animals.slice()
+    // ou Array.from(animals.values())
+    return [...animals.values()]
   }
 
   return {
-    addAnimal: addAnimal,
-    deleteAnimal: deleteAnimal,
-    getAnimals: getAnimals
+    addAnimal,
+    deleteAnimal,
+    getAnimals
   }
 }()
