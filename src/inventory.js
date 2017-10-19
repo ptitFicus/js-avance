@@ -1,30 +1,29 @@
 class PetStore {
+  animals = new Map();
   constructor() {
-    this.animals = new Map();
-
-    this.ids = this.idGenerator()
+    this.ids = this.idGenerator();
   }
 
   addAnimal(...rest) {
-    const newId = this.ids.next().value
+    const newId = this.ids.next().value;
 
-    this.animals.set(newId, new Animal(newId, ...rest))
+    this.animals.set(newId, new Animal(newId, ...rest));
 
-    return newId
+    return newId;
   }
 
   deleteAnimal(idToDelete) {
-    this.animals.delete(idToDelete)
+    this.animals.delete(idToDelete);
   }
 
   getAnimals() {
     // ou Array.from(animals.values())
-    return [...this.animals.values()]
+    return [...this.animals.values()];
   }
 
   *idGenerator() {
     for (let i = 0; ; i++) {
-      yield i
+      yield i;
     }
   }
 }
@@ -37,3 +36,6 @@ function Animal(id, name, specie, race, age, photo) {
   this.age = age;
   this.photo = photo;
 }
+
+
+export default PetStore

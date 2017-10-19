@@ -1,3 +1,8 @@
+import 'babel-polyfill'
+
+import PetStore from './inventory'
+
+
 const store = new PetStore()
 
 store.addAnimal('Lassie', 'Chien', 'Colley', 5, 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg')
