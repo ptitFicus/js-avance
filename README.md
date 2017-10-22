@@ -20,7 +20,11 @@ Tout au long de la formation, nous allons refactorer cette application, d'abord 
 * Remplacer toutes les var par let ou const, qu'utilise-t-on le plus ?
 * Refactorer l'IIFE en classe
 * Intégrer le backend dans l'application
- * Installer les dépendances avec `npm istall`d'abord juste pour la récupération avec XMLHttpRequest, puis partout avec fetch, puis avec asyn  await (pour les plus expérimentés)
+ * Installer les dépendances avec `npm install`
+ * Lancer le serveur avec `node server.js`
+ * Coder la récupération des animaux (sur l'endpoint `/animals`) avec une XMLHTTPRequest. Optionnellement, coder l'ajout et la suppression des animaux avec la même méthode.
+ * Modifier l'implémentation pour utiliser `fetch` (et coder la suppression et l'ajout si ce n'est pas déjà fait)
+ * Modifier l'implémentation pour utiliser `async / await`
 * Remplacer le code de génération de nouvel id par un générateur [Voir ici pour l'utilisation des générateurs](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Instructions/function*)
 * Utiliser babel pour mettre en place la feature de class field (stage 2). Voir[ici](https://github.com/tc39/proposal-class-public-fields) pour la proposal et [ici](https://babeljs.io/docs/plugins/transform-class-properties/) pour les informations d'implémentation babel
 * Mettre en place webpack et le webpack dev server sur le projet dev server, pensez au loader babel !
