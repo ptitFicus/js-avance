@@ -5,7 +5,6 @@ var animals = [
 ];
 
 // On détermine l'id de départ en cherchant l'id max parmis ceux qui existent déjà
-// TODO : remplacer cette boucle avec un reduce
 var id = 0;
 for (var i = 0; i < animals.length; i++) {
   var localId = animals[i].id
@@ -20,7 +19,6 @@ for (var i = 0; i < animals.length; i++) {
  * @param {Number} id identifiant de l'animal à supprimer de la liste
  */
 function deleteAnimal(id) {
-  // TODO changer cette implémentation pour utiliser filter
   for (var i = 0; i < animals.length; i++) {
     var animal = animals[i];
     if (animal.id === id) {
@@ -50,7 +48,6 @@ function addAnimal(animal) {
  */
 function fillInventory() {
   var inventoryNode = document.getElementById("inventory");
-  // TODO réparer le callback de suppression en utilisant une IIFE
   for (var i = 0; i < animals.length; i++) {
     var animal = animals[i];
 
