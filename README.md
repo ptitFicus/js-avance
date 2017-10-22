@@ -19,11 +19,15 @@ Tout au long de la formation, nous allons refactorer cette application, d'abord 
 * Remplacer l'array servant à stocker les animaux par une Map, _sans changer l'API exposée par le module_
 * Remplacer toutes les var par let ou const, qu'utilise-t-on le plus ?
 * Refactorer l'IIFE en classe
-* Mettre en place un appel au back : d'abord juste pour la récupération avec XMLHttpRequest, puis partout avec fetch, puis avec asyn  await (pour les plus expérimentés)
+* Intégrer le backend dans l'application
+ * Installer les dépendances avec `npm istall`d'abord juste pour la récupération avec XMLHttpRequest, puis partout avec fetch, puis avec asyn  await (pour les plus expérimentés)
 * Remplacer le code de génération de nouvel id par un générateur [Voir ici pour l'utilisation des générateurs](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Instructions/function*)
 * Utiliser babel pour mettre en place la feature de class field (stage 2). Voir[ici](https://github.com/tc39/proposal-class-public-fields) pour la proposal et [ici](https://babeljs.io/docs/plugins/transform-class-properties/) pour les informations d'implémentation babel
 * Mettre en place webpack et le webpack dev server sur le projet dev server, pensez au loader babel !
-* Mettre en place le loader webpack pour permettre l'import du style directement dans les fichiers js `import style.css`
+* Mettre en place le loader webpack pour permettre l'import du style directement dans les fichiers js avec la syntaxe
+```js
+import style.css`
+```
 * Convertir la gestion des animaux en module ES6
 * Mettre en place eslint et prettier
 * Mettre en place des tests unitaires sur le projet
