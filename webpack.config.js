@@ -12,7 +12,6 @@ const config = {
     devServer: {
         contentBase: __dirname + '/src'
     },
-    devtool: 'eval-source-map',
     module: {
         rules: [
             {
@@ -30,8 +29,8 @@ const config = {
     }
 }
 
-if (process.env.NODE_ENV === 'production') {
-    config.devtool = 'source-map';
+if (process.env.NODE_ENV !== 'production') {
+    config.devtool = 'eval-source-map';
 }
 
 module.exports = config;

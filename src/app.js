@@ -1,7 +1,5 @@
-import 'babel-polyfill'
-
 import PetStore from './inventory'
-
+import './style.css'
 
 const store = new PetStore()
 
