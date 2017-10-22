@@ -1,7 +1,7 @@
 var animals = [
-  { id: 1, name: 'Lassie', specie: 'Chien', race: 'Colley', age: 5, picture: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg' },
-  { id: 2, name: 'Milou', specie: 'Chien', race: 'Fox Terrier', age: 6, picture: 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg' },
-  { id: 3, name: 'Garfield', specie: 'Chat', race: 'Chat de gouttière', age: 8, picture: 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png' }
+  { id: 1, name: 'Lassie', specie: 'Chien', race: 'Colley', age: 5, photo: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg' },
+  { id: 2, name: 'Milou', specie: 'Chien', race: 'Fox Terrier', age: 6, photo: 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg' },
+  { id: 3, name: 'Garfield', specie: 'Chat', race: 'Chat de gouttière', age: 8, photo: 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png' }
 ];
 
 // On détermine l'id de départ en cherchant l'id max parmis ceux qui existent déjà
@@ -96,9 +96,9 @@ function generateAnimalTag(animal, deleteCallback) {
   var age = document.createElement("div");
   age.textContent = "Age : " + animal.age;
 
-  var picture = document.createElement("img");
-  picture.classList.add("animal-image");
-  picture.setAttribute("src", animal.picture);
+  var photo = document.createElement("img");
+  photo.classList.add("animal-image");
+  photo.setAttribute("src", animal.photo);
 
   var deleteButton = document.createElement("button");
   deleteButton.innerHTML = "X";
@@ -111,7 +111,7 @@ function generateAnimalTag(animal, deleteCallback) {
   info.appendChild(age);
 
   container.appendChild(info);
-  container.appendChild(picture);
+  container.appendChild(photo);
 
   entry.appendChild(deleteButton);
   entry.appendChild(name);
@@ -135,6 +135,8 @@ function registerAnimal(e) {
   var race = form["input-race"].value;
   var age = form["input-age"].value;
   var photo = form["input-photo"].value;
+
+  e.target.reset();
 
   addAnimal({
     name: name,
