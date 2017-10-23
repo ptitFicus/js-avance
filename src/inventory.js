@@ -19,8 +19,10 @@ class PetStore {
     this.ids = idGenerator()
   }
 
-  addAnimal(animal) {
-    return fetch(`http://localhost:8090/animals`, { method: 'POST', body: JSON.stringify(animal) })
+  addAnimal(...rest) {
+
+    const newId = this.ids.next().value
+    return fetch(`http://localhost:8090/animals`, { method: 'POST', body: JSON.stringify(new Animal(newId, ...rest)) })
       .catch(e => console.error(e))
   }
 

@@ -24,11 +24,6 @@ const config = {
       },
     ],
   },
-  resolve: {
-    alias: {
-      vue: 'vue/dist/vue.js'
-    }
-  }
 }
 
 if (process.env.NODE_ENV !== 'production') {
