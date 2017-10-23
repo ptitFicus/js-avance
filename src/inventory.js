@@ -1,5 +1,5 @@
 function* idGenerator() {
-  for (let i = 0; ; i += 1) {
+  for (let i = 4; ; i += 1) {
     yield i
   }
 }
@@ -10,7 +10,7 @@ function Animal(id, name, specie, race, age, photo) {
   this.specie = specie
   this.race = race
   this.age = age
-  this.photo = photo
+  this.photo = photo || 'http://lorempixel.com/output/animals-q-c-640-480-8.jpg'
 }
 
 class PetStore {
@@ -20,20 +20,21 @@ class PetStore {
   }
 
   addAnimal(...rest) {
+
     const newId = this.ids.next().value
-
-    this.animals.set(newId, new Animal(newId, ...rest))
-
-    return newId
+    return fetch(`http://localhost:8090/animals`, { method: 'POST', body: JSON.stringify(new Animal(newId, ...rest)) })
+      .catch(e => console.error(e))
   }
 
   deleteAnimal(idToDelete) {
-    this.animals.delete(idToDelete)
+    return fetch(`http://localhost:8090/animals/${idToDelete}`, { method: 'DELETE' })
+      .catch(e => console.error(e))
   }
 
   getAnimals() {
-    // ou Array.from(animals.values())
-    return [...this.animals.values()]
+    return fetch('http://localhost:8090/animals')
+      .then(res => res.json())
+      .catch(err => console.error(err))
   }
 }
 

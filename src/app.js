@@ -3,28 +3,6 @@ import './style.css'
 
 const store = new PetStore()
 
-store.addAnimal(
-  'Lassie',
-  'Chien',
-  'Colley',
-  5,
-  'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg',
-)
-store.addAnimal(
-  'Milou',
-  'Chien',
-  'Fox Terrier',
-  6,
-  'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg',
-)
-store.addAnimal(
-  'Garfield',
-  'Chat',
-  'Chat de gouttière',
-  8,
-  'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png',
-)
-
 /**
  * Rempli la section inventory de la liste des animaux avec
  * les animaux en mémoire
@@ -32,15 +10,18 @@ store.addAnimal(
 function fillInventory() {
   const inventoryNode = document.getElementById('inventory')
 
-  store.getAnimals().forEach((animal) => {
-    const deleteFunction = function () {
-      store.deleteAnimal(animal.id)
-      repaint()
-    }
+  store
+    .getAnimals()
+    .then(animals => animals.forEach((animal) => {
+      const deleteFunction = function () {
+        store.deleteAnimal(animal.id)
+          .then(repaint)
+          .catch(e => console.error(e))
+      }
 
-    const entry = generateAnimalTag(animal, deleteFunction)
-    inventoryNode.appendChild(entry)
-  })
+      const entry = generateAnimalTag(animal, deleteFunction)
+      inventoryNode.appendChild(entry)
+    }))
 }
 
 /** ******************************************************
@@ -117,8 +98,10 @@ function registerAnimal(e) {
   const photo = form['input-photo'].value
 
   store.addAnimal(name, specie, race, age, photo)
+    .then(repaint)
+    .catch(e => console.error(e))
 
-  repaint()
+  form.reset()
 }
 
 /**
