@@ -4,8 +4,8 @@ Ce repository git contient l'application servant de base à la formation JavaScr
 Cette application est codée en ES5 "legacy".
 Tout au long de la formation, nous allons refactorer cette application, d'abord pour exploiter pleinement les fonctionnalités de JavaScript ES5, puis pour découvrir les fonctionnalités ES6 et industrialiser l'application.
 
-
 ## Exercices
+
 * Remplacer les objets animaux instanciés littéralemens à l'aide d'un constructeur
 * Utiliser filter et reducer pour recoder de manière plus fonctionnelle des parties existantes de l'application
 * Rendre le paramètre de l'image optionnel dans l'application (afficher un placeholder si il n'est pas présent)
@@ -20,18 +20,20 @@ Tout au long de la formation, nous allons refactorer cette application, d'abord 
 * Remplacer toutes les var par let ou const, qu'utilise-t-on le plus ?
 * Refactorer l'IIFE en classe
 * Intégrer le backend dans l'application
- * Installer les dépendances avec `npm install`
- * Lancer le serveur avec `node server.js`
- * Coder la récupération des animaux (sur l'endpoint `/animals`) avec une XMLHTTPRequest. Optionnellement, coder l'ajout et la suppression des animaux avec la même méthode.
- * Modifier l'implémentation pour utiliser `fetch` (et coder la suppression et l'ajout si ce n'est pas déjà fait)
- * Modifier l'implémentation pour utiliser `async / await`
+  * Installer les dépendances avec `npm install`
+  * Lancer le serveur avec `node server.js`
+  * Coder la récupération des animaux (sur l'endpoint `/animals`) avec une XMLHTTPRequest. Optionnellement, coder l'ajout et la suppression des animaux avec la même méthode.
+  * Modifier l'implémentation pour utiliser `fetch` (et coder la suppression et l'ajout si ce n'est pas déjà fait)
+  * Modifier l'implémentation pour utiliser `async / await`
 * Remplacer le code de génération de nouvel id par un générateur [Voir ici pour l'utilisation des générateurs](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Instructions/function*)
 * Utiliser babel pour mettre en place la feature de class field (stage 2). Voir[ici](https://github.com/tc39/proposal-class-public-fields) pour la proposal et [ici](https://babeljs.io/docs/plugins/transform-class-properties/) pour les informations d'implémentation babel
 * Mettre en place webpack et le webpack dev server sur le projet dev server, pensez au loader babel !
 * Mettre en place le loader webpack pour permettre l'import du style directement dans les fichiers js avec la syntaxe
+
 ```js
-import style.css`
+import style.css
 ```
-* Convertir la gestion des animaux en module ES6
+
+* Convertir la gestion des animaux module commonjs, puis en module ES6
 * Mettre en place eslint et prettier
 * Mettre en place des tests unitaires sur le projet
