@@ -5,6 +5,7 @@ import './style.css'
 
 const store = new PetStore()
 
+<<<<<<< HEAD
 new Vue({
   el: '#app',
   data() {
