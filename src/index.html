@@ -5,41 +5,57 @@
 </head>
 
 <body>
-  <h1>Ma boutique animalière</h1>
-  <h2>Opérations</h2>
-  <form id="creation-form">
-    <label>
-      <span>Nom</span>
-      <input type="text" id="input-name" />
-    </label>
+  <div id="app">
+    <h1>Ma boutique animalière</h1>
+    <h2>Opérations</h2>
+    <form id="creation-form" v-on:submit.prevent="registerAnimal">
+      <label>
+        <span>Nom</span>
+        <input type="text" id="input-name" v-model="formData.name" />
+      </label>
 
-    <label>
-      <span>Espèce</span>
-      <input type="text" id="input-species" />
-    </label>
+      <label>
+        <span>Espèce</span>
+        <input type="text" id="input-species" v-model="formData.specie" />
+      </label>
 
-    <label>
-      <span>Race</span>
-      <input type="text" id="input-race" />
-    </label>
+      <label>
+        <span>Race</span>
+        <input type="text" id="input-race" v-model="formData.race" />
+      </label>
 
-    <label>
-      <span>Age</span>
-      <input type="number" id="input-age" />
-    </label>
+      <label>
+        <span>Age</span>
+        <input type="number" id="input-age" v-model="formData.age" />
+      </label>
 
-    <label>
-      <span>Photo</span>
-      <input type="text" id="input-photo" />
-    </label>
+      <label>
+        <span>Photo</span>
+        <input type="text" id="input-photo" v-model="formData.photo" />
+      </label>
 
-    <button id="add-button">Ajouter</button>
-  </form>
-  <h2>Inventaire</h2>
-  <input type="text" id="search-input" />
+      <button id="add-button">Ajouter</button>
+    </form>
+    <h2>Inventaire</h2>
+    <input type="text" id="search-input" v-model="specie" v-on:input="filterAnimal" />
 
-  <section id="inventory">
-  </section>
+    <section id="inventory">
+      <div class="animal" v-for="animal in animals">
+        <button class="delete-button" v-on:click="deleteAnimal(animal.id)">X</button>
+        <div class="name">
+          {{animal.name}}
+        </div>
+        <div class="container">
+          <div class="animal-info">
+            <div>Espèce : {{animal.specie}}</div>
+            <div>Race : {{animal.race}}</div>
+            <div>Age : {{animal.age}}</div>
+          </div>
+          <img class="animal-image" v-bind:src="animal.photo" />
+        </div>
+      </div>
+    </section>
+  </div>
   <script src="assets/app.bundle.js"></script>
 </body>
 
