@@ -34,6 +34,12 @@ class PetStore {
       .then(res => res.json())
       .catch(err => console.error(err))
   }
+
+  findAnimalBySpecie(specie) {
+    return fetch(`http://localhost:8090/byspecie/${specie}`)
+      .then(res => res.json())
+      .catch(err => console.error(err))
+  }
 }
 
 export default PetStore
