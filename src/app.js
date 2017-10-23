@@ -1,67 +1,22 @@
-var animals = [
-  { id: 1, name: 'Lassie', specie: 'Chien', race: 'Colley', age: 5, photo: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg' },
-  { id: 2, name: 'Milou', specie: 'Chien', race: 'Fox Terrier', age: 6, photo: 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg' },
-  { id: 3, name: 'Garfield', specie: 'Chat', race: 'Chat de gouttière', age: 8, photo: 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png' }
-];
-
-// On détermine l'id de départ en cherchant l'id max parmis ceux qui existent déjà
-var id = 0;
-for (var i = 0; i < animals.length; i++) {
-  var localId = animals[i].id
-  if (localId > id) {
-    id = localId
-  }
-}
-
-/**
- * Supprime l'animal correspondant à l'identifiant donné de la liste en mémoire
- * Cette fonction n'a pas d'impact sur l'interface graphique (il faut utiliser repaint pour cela)
- * @param {Number} id identifiant de l'animal à supprimer de la liste
- */
-function deleteAnimal(id) {
-  for (var i = 0; i < animals.length; i++) {
-    var animal = animals[i];
-    if (animal.id === id) {
-      animals.splice(i, 1);
-      break;
-    }
-  }
-  repaint();
-}
-
-/**
- * Ajoute un animale à la liste des animaux
- * @param {Object} animal animal à ajouter à la liste
- */
-function addAnimal(animal) {
-  id += 1
-  animal.id = id
-  animals.push(animal)
-
-  repaint();
-}
-
-
 /**
  * Rempli la section inventory de la liste des animaux avec
  * les animaux en mémoire
  */
 function fillInventory() {
   var inventoryNode = document.getElementById("inventory");
-  for (var i = 0; i < animals.length; i++) {
-    var animal = animals[i];
+
+  inventory.getAnimals().forEach(function (animal) {
 
     var deleteFunction = function () {
-      deleteAnimal(animal.id);
+      inventory.deleteAnimal(animal.id);
+      repaint();
     }
+
 
     var entry = generateAnimalTag(animal, deleteFunction);
     inventoryNode.appendChild(entry);
-  }
+  });
 }
-
-
-
 
 /********************************************************
  * LA SECTION CI-DESSOUS CONTIENT LES METHODES MANIPULANT
@@ -138,13 +93,15 @@ function registerAnimal(e) {
 
   e.target.reset();
 
-  addAnimal({
+  inventory.addAnimal({
     name: name,
     specie: specie,
     race: race,
     age: age,
     photo: photo
   })
+
+  repaint();
 }
 
 
