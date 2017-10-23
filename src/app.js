@@ -1,47 +1,134 @@
-import Vue from 'vue'
 import PetStore from './inventory'
 import _ from 'lodash'
 import './style.css'
 
 const store = new PetStore()
+/**
+ * Rempli la section inventory de la liste des animaux avec
+ * les animaux en mémoire
+ */
+function fillInventory() {
+  const inventoryNode = document.getElementById('inventory')
 
-new Vue({
-  el: '#app',
-  data() {
-    return {
-      formData: {
-        name: '',
-        specie: '',
-        race: '',
-        age: '',
-        photo: ''
-      },
-      animals: [],
-      specie: ''
-    }
-  },
-  mounted() {
-    this.refreshAnimals()
-  },
-  methods: {
-    registerAnimal(e) {
-      store.addAnimal(this.formData)
-      this.refreshAnimals()
-    },
-    refreshAnimals() {
-      store.getAnimals()
-        .then(animals => this.animals = animals)
-        .catch(err => console.error(err))
-    },
-    deleteAnimal(id) {
-      store.deleteAnimal(id)
-        .then(this.refreshAnimals)
-        .catch(err => console.error(err))
-    },
-    filterAnimal: _.debounce(function () {
-      (this.specie ? store.findAnimalBySpecie(this.specie) : store.getAnimals())
-        .then(animals => this.animals = animals)
-        .catch(err => console.error(err))
-    }, 500)
+  store
+    .getAnimals()
+    .then(animals => animals.forEach((animal) => {
+      const deleteFunction = function () {
+        store.deleteAnimal(animal.id)
+          .then(repaint)
+          .catch(e => console.error(e))
+      }
+
+      const entry = generateAnimalTag(animal, deleteFunction)
+      inventoryNode.appendChild(entry)
+    }))
+}
+
+/** ******************************************************
+ * LA SECTION CI-DESSOUS CONTIENT LES METHODES MANIPULANT
+ * LE DOM. CES METHODES N'ONT PAS A ETRE MODIFIEE DANS LE
+ * CADRE DE CET EXERCICE
+ ******************************************************* */
+/**
+ *
+ * @param {Object} animal génère le markup HTML pour un animal donné
+ * @param {Function} deleteCallback fonction qui sera appelé au clic sur le bouton de suppression de l'animal
+ */
+function generateAnimalTag(animal, deleteCallback) {
+  const entry = document.createElement('div')
+  entry.classList.add('animal')
+
+  const name = document.createElement('div')
+  name.classList.add('animal-name')
+  name.textContent = animal.name
+
+  const container = document.createElement('div')
+  container.classList.add('container')
+
+  const info = document.createElement('div')
+  info.classList.add('animal-info')
+
+  const specie = document.createElement('div')
+  specie.textContent = `Espèce : ${animal.specie}`
+
+  const race = document.createElement('div')
+  race.textContent = `Race : ${animal.race}`
+
+  const age = document.createElement('div')
+  age.textContent = `Age : ${animal.age}`
+
+  const picture = document.createElement('img')
+  picture.classList.add('animal-image')
+  picture.setAttribute('src', animal.photo)
+
+  const deleteButton = document.createElement('button')
+  deleteButton.innerHTML = 'X'
+  deleteButton.classList.add('delete-button')
+
+  deleteButton.addEventListener('click', deleteCallback)
+
+  info.appendChild(specie)
+  info.appendChild(race)
+  info.appendChild(age)
+
+  container.appendChild(info)
+  container.appendChild(picture)
+
+  entry.appendChild(deleteButton)
+  entry.appendChild(name)
+  entry.appendChild(container)
+
+  return entry
+}
+
+/**
+ * Listener au submit du formulaire : récupère les données du formulaire,
+ * ajoute le nouvel animale à la liste en mémoire et déclenche la mise à jour
+ * de l'interface graphique
+ * @param {Event} e l'évènement de submit du formulaire
+ */
+function registerAnimal(e) {
+  e.preventDefault()
+  const form = e.target
+
+  const name = form['input-name'].value
+  const specie = form['input-species'].value
+  const race = form['input-race'].value
+  const age = form['input-age'].value
+  const photo = form['input-photo'].value
+
+  store.addAnimal(name, specie, race, age, photo)
+    .then(repaint)
+    .catch(e => console.error(e))
+
+  form.reset()
+}
+
+/**
+ * Repaint l'interface graphique en supprimant tous les éléments qui y sont affichés
+ * puis réaffichant tous les éléments présents en mémoire.
+ * Cette fonction permet d'appliquer les mises à jour de la liste animals graphiquement
+ */
+function repaint() {
+  clearInventory()
+  fillInventory()
+}
+
+/**
+ * Vide la section inventory de l'interface graphique
+ */
+function clearInventory() {
+  const inventoryNode = document.getElementById('inventory')
+  while (inventoryNode.hasChildNodes()) {
+    inventoryNode.removeChild(inventoryNode.firstChild)
   }
-})
+}
+
+/**
+ * Fonction d'initialisation : ajoute l'event listener sur le formulaire de saisie des animaux
+ */
+function init() {
+  document.getElementById('creation-form').addEventListener('submit', registerAnimal)
+  repaint()
+}
+init()
