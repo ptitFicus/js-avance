@@ -1,34 +1,30 @@
 import PetStore from './inventory'
 import './style.css'
+import _ from 'lodash'
 
 const store = new PetStore()
 
-/**
- * Rempli la section inventory de la liste des animaux avec
- * les animaux en mémoire
- */
-function fillInventory() {
-  const inventoryNode = document.getElementById('inventory')
-
-  store
-    .getAnimals()
-    .then(animals => animals.forEach((animal) => {
-      const deleteFunction = function () {
-        store.deleteAnimal(animal.id)
-          .then(repaint)
-          .catch(e => console.error(e))
-      }
-
-      const entry = generateAnimalTag(animal, deleteFunction)
-      inventoryNode.appendChild(entry)
-    }))
+function repaintAll() {
+  store.getAnimals()
+    .then(animals => repaint(animals))
+    .catch(err => console.error(err))
 }
 
-/** ******************************************************
- * LA SECTION CI-DESSOUS CONTIENT LES METHODES MANIPULANT
- * LE DOM. CES METHODES N'ONT PAS A ETRE MODIFIEE DANS LE
- * CADRE DE CET EXERCICE
- ******************************************************* */
+
+function fillInventory(animals) {
+  const inventoryNode = document.getElementById('inventory')
+  animals.forEach((animal) => {
+    const deleteFunction = function () {
+      store.deleteAnimal(animal.id)
+        .then(repaintAll)
+        .catch(e => console.error(e))
+    }
+
+    const entry = generateAnimalTag(animal, deleteFunction)
+    inventoryNode.appendChild(entry)
+  })
+}
+
 /**
  *
  * @param {Object} animal génère le markup HTML pour un animal donné
@@ -81,12 +77,7 @@ function generateAnimalTag(animal, deleteCallback) {
   return entry
 }
 
-/**
- * Listener au submit du formulaire : récupère les données du formulaire,
- * ajoute le nouvel animale à la liste en mémoire et déclenche la mise à jour
- * de l'interface graphique
- * @param {Event} e l'évènement de submit du formulaire
- */
+
 function registerAnimal(e) {
   e.preventDefault()
   const form = e.target
@@ -104,19 +95,11 @@ function registerAnimal(e) {
   form.reset()
 }
 
-/**
- * Repaint l'interface graphique en supprimant tous les éléments qui y sont affichés
- * puis réaffichant tous les éléments présents en mémoire.
- * Cette fonction permet d'appliquer les mises à jour de la liste animals graphiquement
- */
-function repaint() {
+function repaint(animals) {
   clearInventory()
-  fillInventory()
+  fillInventory(animals)
 }
 
-/**
- * Vide la section inventory de l'interface graphique
- */
 function clearInventory() {
   const inventoryNode = document.getElementById('inventory')
   while (inventoryNode.hasChildNodes()) {
@@ -124,11 +107,27 @@ function clearInventory() {
   }
 }
 
+function filterAnimals(e) {
+  const input = e.target
+  console.log(input.value)
+  const search = input.value;
+
+  (search ? store.findAnimalBySpecie(search) : store.getAnimals())
+    .then(animals => {
+      console.log(animals)
+      repaint(animals)
+    })
+    .catch(err => console.error(err))
+}
+
+
+
 /**
  * Fonction d'initialisation : ajoute l'event listener sur le formulaire de saisie des animaux
  */
 function init() {
   document.getElementById('creation-form').addEventListener('submit', registerAnimal)
-  repaint()
+  document.getElementById('search-input').addEventListener('input', _.debounce(filterAnimals, 500))
+  repaintAll()
 }
 init()
