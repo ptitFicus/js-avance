@@ -1,3 +1,5 @@
+var inventory = new Inventory()
+
 /**
  * Rempli la section inventory de la liste des animaux avec
  * les animaux en mémoire
