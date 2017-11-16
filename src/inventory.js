@@ -1,3 +1,7 @@
+function* idGenerateur(initial) {
+  for(var i = initial; ; i++) yield i;
+}
+
 class Inventory {
   constructor() {
     this._animals = new Map(
@@ -8,7 +12,9 @@ class Inventory {
     ]);
 
     this.id = [...this._animals.keys()]
-    .reduce((acc, id) => id > acc ? id : acc, 0)
+      .reduce((acc, id) => id > acc ? id : acc, 0)
+    
+    this.generateur = idGenerateur(this.id + 1)
   }
 
   deleteAnimal(id) {
@@ -16,9 +22,8 @@ class Inventory {
   }
 
   addAnimal(animal) {
-    this.id += 1
-
-    this._animals.set(this.id, new Animal(this.id, animal.name, animal.specie, animal.race, animal.age, animal.photo))
+    const newId = this.generateur.next().value
+    this._animals.set(newId, new Animal(newId, animal.name, animal.specie, animal.race, animal.age, animal.photo))
   }
 
   get animals() {
