@@ -1,5 +1,5 @@
 function* idGenerateur(initial) {
-  for(var i = initial; ; i++) yield i;
+  for(var i = initial; ; i += 1) yield i;
 }
 
 class Inventory {
