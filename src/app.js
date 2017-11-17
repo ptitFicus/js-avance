@@ -9,10 +9,9 @@ let inventory = new Inventory()
  */
 function fillInventory() {
   var inventoryNode = document.getElementById("inventory");
-  inventory.getAnimals()
-    .then(animals => animals.forEach(function(animal) {   
+  inventory.getAnimals(animals => animals.forEach(function(animal) {   
       var deleteFunction = function () {
-        inventory.deleteAnimal(animal.id).then(repaint);
+        inventory.deleteAnimal(animal.id, repaint);
       }
 
       var entry = generateAnimalTag(animal, deleteFunction);
@@ -101,8 +100,7 @@ function registerAnimal(e) {
     race: race,
     age: age,
     photo: photo
-  })
-  .then(repaint)
+  }, repaint)
 }
 
 
