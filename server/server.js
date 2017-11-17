@@ -1,18 +1,12 @@
 var Datastore = require("nedb");
+var uuidv1 = require('uuid/v1');
+
 var db = new Datastore({ filename: "./animals.db", autoload: true });
 
 var restify = require("restify");
 var server = restify.createServer();
 server.use(restify.CORS());
 server.use(restify.bodyParser());
-
-var bunyan = require("bunyan");
-server.on(
-  "after",
-  restify.auditLogger({
-    log: bunyan.createLogger({ name: "audit", stream: process.stdout })
-  })
-);
 
 server.get("/animals/:id", function (req, res, next) {
   db.find({ _id: req.params.id }, function (err, docs) {
@@ -69,35 +63,25 @@ server.get("/byspecie/:specie", function (req, res, next) {
   });
 });
 
-server.put("/animals/:id", function (req, res, next) {
+server.post("/animals", function (req, res, next) {
   console.log("PUT /animal/" + req.params.id + " " + req.params);
   const body = JSON.parse(req.body)
-  console.log(body)
-  db.find({ _id: req.params.id }, function (err, docs) {
+
+  var animal = {
+    _id: uuidv1(),
+    name: body.name,
+    specie: body.specie,
+    race: body.race,
+    age: body.age,
+    photo: body.photo
+  };
+  console.log("Adding animal:", animal);
+  db.insert(animal, function (err, newDoc) {
     if (err) {
       return res.next(err);
     }
-    if (docs.length !== 0) {
-      res.send(400, "Already exists");
-      return res.next();
-    } else {
-      var animal = {
-        _id: req.params.id,
-        name: body.name,
-        specie: body.specie,
-        race: body.race,
-        age: body.age,
-        picture: body.picture
-      };
-      console.log("Adding animal:", animal);
-      db.insert(animal, function (err, newDoc) {
-        if (err) {
-          return res.next(err);
-        }
-        res.send(200);
-        res.next();
-      });
-    }
+    res.send(200);
+    res.next();
   });
   res.send(200);
   res.next();

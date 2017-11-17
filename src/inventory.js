@@ -3,14 +3,13 @@ function* idGenerateur(initial) {
 }
 
 class Inventory {
-  constructor() {
-    this._animals = new Map(
+  _animals = new Map(
       [
       [1, new Animal(1, 'Lassie', 'Chien', 'Colley', 5, 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Lassie.jpg')],
       [2, new Animal(2, 'Milou', 'Chien', 'Fox Terrier', 6, 'http://www.tintin.com/tintin/persos/milou/milou_seul.jpg')],
       [3, new Animal(3, 'Garfield', 'Chat', 'Chat de gouttière', 8, 'http://www.imagespourtoi.com/lesimages/garfield/image-garfield-3.png')]
     ]);
-
+  constructor() {
     this.id = [...this._animals.keys()]
       .reduce((acc, id) => id > acc ? id : acc, 0)
     

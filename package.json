@@ -1,0 +1,26 @@
+{
+  "name": "js-avance",
+  "version": "1.0.0",
+  "description": "Ce repository git contient l'application servant de base à la formation JavaScript avancée. Cette application est codée en ES5 \"legacy\". Tout au long de la formation, nous allons refactorer cette application, d'abord pour exploiter pleinement les fonctionnalités de JavaScript ES5, puis pour découvrir les fonctionnalités ES6 et industrialiser l'application.",
+  "main": "index.js",
+  "scripts": {
+    "transpile": "rm -rf dist && mkdir dist && babel src --out-dir dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ptitFicus/js-avance.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ptitFicus/js-avance/issues"
+  },
+  "homepage": "https://github.com/ptitFicus/js-avance#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}
