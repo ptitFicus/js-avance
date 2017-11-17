@@ -6,3 +6,11 @@
 {"_id":"67b6b870-cb36-11e7-bffb-eb7cecedc03d","name":"aa","specie":"aa","race":"aa","age":"2","photo":"aa"}
 {"$$deleted":true,"_id":"5f803640-cb36-11e7-bffb-eb7cecedc03d"}
 {"$$deleted":true,"_id":"67b6b870-cb36-11e7-bffb-eb7cecedc03d"}
+{"_id":"9f3993c0-cb37-11e7-bffb-eb7cecedc03d","name":"aa","specie":"","race":"","age":"","photo":""}
+{"_id":"a9b65c70-cb37-11e7-bffb-eb7cecedc03d","name":"aa","specie":"","race":"","age":"","photo":""}
+{"$$deleted":true,"_id":"9f3993c0-cb37-11e7-bffb-eb7cecedc03d"}
+{"$$deleted":true,"_id":"a9b65c70-cb37-11e7-bffb-eb7cecedc03d"}
+{"_id":"01263de0-cb38-11e7-bffb-eb7cecedc03d","name":"aa","specie":"","race":"","age":"","photo":""}
+{"$$deleted":true,"_id":"01263de0-cb38-11e7-bffb-eb7cecedc03d"}
+{"_id":"0722d5a0-cb38-11e7-bffb-eb7cecedc03d","name":"aa","specie":"","race":"","age":"","photo":""}
+{"$$deleted":true,"_id":"0722d5a0-cb38-11e7-bffb-eb7cecedc03d"}

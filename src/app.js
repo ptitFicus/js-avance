@@ -9,14 +9,15 @@ let inventory = new Inventory()
  */
 function fillInventory() {
   var inventoryNode = document.getElementById("inventory");
-  inventory.getAnimals(animals => animals.forEach(function(animal) {   
-    var deleteFunction = function () {
-      inventory.deleteAnimal(animal.id, repaint);
-    }
+  inventory.getAnimals()
+    .then(animals => animals.forEach(function(animal) {   
+      var deleteFunction = function () {
+        inventory.deleteAnimal(animal.id).then(repaint);
+      }
 
-    var entry = generateAnimalTag(animal, deleteFunction);
-    inventoryNode.appendChild(entry);
-  }))
+      var entry = generateAnimalTag(animal, deleteFunction);
+      inventoryNode.appendChild(entry);
+    }))
 }
 
 /********************************************************
@@ -100,7 +101,8 @@ function registerAnimal(e) {
     race: race,
     age: age,
     photo: photo
-  }, () => repaint())
+  })
+  .then(repaint)
 }
 
 

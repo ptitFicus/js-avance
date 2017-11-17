@@ -1,34 +1,26 @@
 class Inventory {
   _animals = new Map()
 
-  deleteAnimal(id, callback) {
-    var r = new XMLHttpRequest();
-    r.open("DELETE", `http://localhost:8090/animals/${id}`, true);
-    r.onreadystatechange = function () {
-      if (r.readyState != 4 || r.status != 200) return;
-      callback && callback();
-    };
-    r.send();
+  deleteAnimal(id) {
+    return fetch(
+      `http://localhost:8090/animals/${id}`,
+      { method: 'DELETE' }
+    )
+    .catch(e => console.error(e))
   }
 
-  addAnimal(animal, callback) {
-    var r = new XMLHttpRequest();
-    r.open("POST", `http://localhost:8090/animals`, true);
-    r.onreadystatechange = function () {
-      if (r.readyState != 4 || r.status != 200) return;
-      callback && callback();
-    };
-    r.send(JSON.stringify(animal));
+  addAnimal(animal) {
+    return fetch(
+      `http://localhost:8090/animals`,
+      { method: 'POST', body: JSON.stringify(animal) }
+    )
+    .catch(e => console.error(e))
   }
 
-  getAnimals(callback) {
-    var r = new XMLHttpRequest();
-    r.open("GET", "http://localhost:8090/animals", true);
-    r.onreadystatechange = function () {
-      if (r.readyState != 4 || r.status != 200) return;
-      callback && callback(JSON.parse(r.responseText));
-    };
-    r.send();
+  getAnimals() {
+    return fetch("http://localhost:8090/animals")
+      .then(resp => resp.json())
+      .catch(err => console.error(err))
   }
 }
 
