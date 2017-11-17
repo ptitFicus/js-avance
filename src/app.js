@@ -5,7 +5,6 @@ import './style.css'
 
 const store = new PetStore()
 
-<<<<<<< HEAD
 new Vue({
   el: '#app',
   data() {
@@ -15,10 +14,10 @@ new Vue({
         specie: '',
         race: '',
         age: '',
-        photo: ''
+        photo: '',
       },
       animals: [],
-      specie: ''
+      specie: '',
     }
   },
   mounted() {
@@ -30,19 +29,21 @@ new Vue({
       this.refreshAnimals()
     },
     refreshAnimals() {
-      store.getAnimals()
-        .then(animals => this.animals = animals)
+      store
+        .getAnimals()
+        .then(animals => (this.animals = animals))
         .catch(err => console.error(err))
     },
     deleteAnimal(id) {
-      store.deleteAnimal(id)
+      store
+        .deleteAnimal(id)
         .then(this.refreshAnimals)
         .catch(err => console.error(err))
     },
     filterAnimal: _.debounce(function () {
       (this.specie ? store.findAnimalBySpecie(this.specie) : store.getAnimals())
-        .then(animals => this.animals = animals)
+        .then(animals => (this.animals = animals))
         .catch(err => console.error(err))
-    }, 500)
-  }
+    }, 500),
+  },
 })
