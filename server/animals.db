@@ -2,3 +2,7 @@
 {"_id":"1","name":"Lilou","specie":"chat","race":"europeen","age":"2","photo":"https://upload.wikimedia.org/wikipedia/commons/f/f1/European-cat_show_Helsinki_2008.JPG"}
 {"_id":"2","name":"Stéphane","specie":"Canari","age":"6","photo":"https://upload.wikimedia.org/wikipedia/commons/5/5d/Canari_jaune_lipochrome_intensif.jpg"}
 {"_id":"3","name":"Lilon","specie":"chien","race":"berger","age":"5","photo":"http://www.quizz.biz/uploads/quizz/446646/4_QwrP9.jpg"}
+{"_id":"5f803640-cb36-11e7-bffb-eb7cecedc03d","name":"aa","specie":"aa","race":"aa","age":"2","photo":"aa"}
+{"_id":"67b6b870-cb36-11e7-bffb-eb7cecedc03d","name":"aa","specie":"aa","race":"aa","age":"2","photo":"aa"}
+{"$$deleted":true,"_id":"5f803640-cb36-11e7-bffb-eb7cecedc03d"}
+{"$$deleted":true,"_id":"67b6b870-cb36-11e7-bffb-eb7cecedc03d"}

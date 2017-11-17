@@ -1,30 +1,34 @@
-function* idGenerateur(initial) {
-  for (let i = initial; ; i++) yield i
-}
-
 class Inventory {
   _animals = new Map()
 
-  constructor() {
-    this.id = [...this._animals.keys()].reduce((acc, id) => (id > acc ? id : acc), 0)
-
-    this.generateur = idGenerateur(this.id + 1)
+  deleteAnimal(id, callback) {
+    var r = new XMLHttpRequest();
+    r.open("DELETE", `http://localhost:8090/animals/${id}`, true);
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+      callback && callback();
+    };
+    r.send();
   }
 
-  deleteAnimal(id) {
-    this._animals.delete(id)
+  addAnimal(animal, callback) {
+    var r = new XMLHttpRequest();
+    r.open("POST", `http://localhost:8090/animals`, true);
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+      callback && callback();
+    };
+    r.send(JSON.stringify(animal));
   }
 
-  addAnimal(animal) {
-    const newId = this.generateur.next().value
-    this._animals.set(
-      newId,
-      new Animal(newId, animal.name, animal.specie, animal.race, animal.age, animal.photo),
-    )
-  }
-
-  get animals() {
-    return [...this._animals.values()]
+  getAnimals(callback) {
+    var r = new XMLHttpRequest();
+    r.open("GET", "http://localhost:8090/animals", true);
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+      callback && callback(JSON.parse(r.responseText));
+    };
+    r.send();
   }
 }
 
