@@ -40,3 +40,5 @@ function Animal(id, name, specie, race, age, photo) {
 }
 
 
+
+export default Inventory

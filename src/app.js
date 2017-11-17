@@ -1,3 +1,6 @@
+import './style.css'
+import Inventory from './inventory.js'
+
 let inventory = new Inventory()
 
 /**
