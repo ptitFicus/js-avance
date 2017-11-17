@@ -7,7 +7,12 @@
     "transpile": "rm -rf dist && mkdir dist && babel src --out-dir dist",
     "start": "webpack-dev-server",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest",
+    "selenium": "webdriver-manager start",
+    "test-ui": "protractor"    
+  },
+  "jest": {
+    "testPathIgnorePatterns": ["/node_modules/", "/ui-test/"]
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,8 @@
   "env": {
     "browser": true,
     "es6": true,
-    "jest": true
+    "jest": true,
+    "protractor": true
   },
   "rules": {
     "semi": ["error", "never"]
